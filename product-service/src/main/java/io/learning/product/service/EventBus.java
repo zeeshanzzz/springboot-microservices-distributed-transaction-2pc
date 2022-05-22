@@ -24,6 +24,7 @@ public class EventBus {
     }
 
     public void sendTransaction(DistributedTransaction transaction) {
+        log.debug("Received transaction","Product");
         transactions.add(transaction);
     }
 

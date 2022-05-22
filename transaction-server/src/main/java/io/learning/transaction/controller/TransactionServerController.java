@@ -40,7 +40,7 @@ public class TransactionServerController {
     private DistributedTransactionRepo repository;
 
     @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private RabbitTemplate template;
 
     @PostMapping
     @Operation(summary = "Add a new transaction")
@@ -102,7 +102,11 @@ public class TransactionServerController {
     }
 
     protected void publishEvent(DistributedTransaction transaction) {
-        rabbitTemplate.convertAndSend("txn-events", "txn-events", transaction);
+        template.convertAndSend("txn-events", "txn-events", transaction);
+    }
+    @PostMapping("/addmore")
+    public void addListner(@RequestBody String transaction) {
+        template.convertAndSend("txn-events", "txn-events", transaction);
     }
 
 }

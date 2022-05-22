@@ -12,8 +12,8 @@ public class StartTransactionServerApplication {
         SpringApplication.run(StartTransactionServerApplication.class, args);
     }
 
-    @Bean
-    public TopicExchange topic() {
-        return new TopicExchange("txn-events");
-    }
+//    @Bean
+//    public TopicExchange topic() {
+//        return new TopicExchange("txn-events");
+//    }
 }

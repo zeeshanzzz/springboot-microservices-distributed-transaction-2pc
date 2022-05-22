@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class DistributedTransaction implements Serializable {
 
     private static final long serialVersionUID = -8594438501671636539L;

@@ -12,19 +12,26 @@ import io.learning.account.service.EventBus;
 import io.learning.core.domain.DistributedTransaction;
 import lombok.extern.slf4j.Slf4j;
 
+import static io.learning.account.config.MQConfig.QUEUE;
+
 @Component
 @Slf4j
 public class DistributedTransactionEventListener {
 
     @Autowired
     private EventBus eventBus;
-
-    @RabbitListener(bindings = {
-            @QueueBinding(value = @Queue("txn-events-account"), exchange = @Exchange(type = ExchangeTypes.TOPIC, name = "txn-events"))
-    })
-    public void onMessage(DistributedTransaction transaction) {
-        debug.info("Transaction message received: {}", transaction);
-        eventBus.sendTransaction(transaction);
+    @RabbitListener(queues={QUEUE} )
+    public void onMessage(String transaction) {
+        log.debug("Transaction message received: {}", transaction);
+        // eventBus.sendTransaction(transaction);
     }
+
+//    @RabbitListener(bindings = {
+//            @QueueBinding(value = @Queue("txn-events-account"), exchange = @Exchange(type = ExchangeTypes.TOPIC, name = "txn-events"))
+//    })
+//    public void onMessage(String transaction) {
+//        log.debug("Transaction message received: {}", transaction);
+//       // eventBus.sendTransaction(transaction);
+//    }
 
 }
